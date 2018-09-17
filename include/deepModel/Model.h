@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <deepModel/Node.h>
+#include <Node.h>
 
 
 namespace biomodel {
