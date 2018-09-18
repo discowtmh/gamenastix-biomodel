@@ -8,7 +8,10 @@
 #include <cstring>
 #include <iostream>
 #include <sstream>
+#include <unordered_map>
+
 #include "Parser.h"
+
 
 using FrameDescription = std::vector<std::pair<Part, Type>>;
 
@@ -49,18 +52,21 @@ struct Frame
         return params;
     }
 
+    Frame() = default;
     Frame(const char *c, FrameDescription &frameDescription)
     {
-        int i = strlen(c);
+        size_t i = strlen(c);
         const char *e = c + i;
         for (auto &frameDescriptionElement : frameDescription)
         {
             auto part = frameDescriptionElement.first;
             auto type = frameDescriptionElement.second;
             model.push_back({part, type, getParams(type, c, e)});
+            modelMap.emplace(std::make_pair(part, &model.back()));
         }
     }
     std::vector<FrameElement> model;
+    std::unordered_map<Part, FrameElement*> modelMap;
 
     std::string dump()
     {
@@ -76,6 +82,12 @@ struct Frame
             ss << "\n";
         }
         return ss.str();
+    }
+
+    std::vector<uint8_t> serialize()
+    {
+        auto serializedString = dump();
+        return std::vector<uint8_t>(serializedString.begin(), serializedString.end());
     }
 
     void print()

@@ -12,6 +12,21 @@ namespace deepModel {
 struct Model
 {
     Node root;
+    std::vector<uint8_t> getSerializedModel()
+    {
+        return root.getSerializedModel();
+    }
+
+    std::vector<uint8_t> getSerializedFrame()
+    {
+        return frame.serialize();
+
+   }
+    void update(Part part, Params params)
+    {
+        frame.modelMap[part]->params = params;
+    }
+        Frame frame;
 };
 }
 }
