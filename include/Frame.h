@@ -90,7 +90,7 @@ struct Frame
     }
     std::vector<FrameElement> model;
 
-    std::string dump()
+    std::string dumpHuman()
     {
         std::stringstream ss;
         for (auto &frameElement : model)
@@ -106,14 +106,28 @@ struct Frame
         return ss.str();
     }
 
+    std::string dumpSerial()
+    {
+        std::stringstream ss;
+        for (auto &frameElement : model)
+        {
+            for (auto &x : frameElement.params)
+            {
+                ss << x << " ";
+            }
+            ss << " ";
+        }
+        return ss.str();
+    }
+
     std::vector<uint8_t> serialize()
     {
-        auto serializedString = dump();
+        auto serializedString = dumpSerial();
         return std::vector<uint8_t>(serializedString.begin(), serializedString.end());
     }
 
     void print()
     {
-        std::cout << dump() << std::endl;
+        std::cout << dumpHuman() << std::endl;
     }
 };

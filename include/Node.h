@@ -186,7 +186,7 @@ struct Node
         {
             ss << param << " ";
         }
-        ss << '\n';
+        ss << ' ';
         for (auto &node : nodes)
         {
             ss << node.dump();
