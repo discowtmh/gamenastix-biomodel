@@ -24,7 +24,6 @@ struct FrameElement
     Params params;
 };
 
-
 struct Frame
 {
     static int getParamsLength(Type type)
@@ -52,7 +51,32 @@ struct Frame
         return params;
     }
 
+    static Params getInitialParams(Type type)
+    {
+        switch (type)
+        {
+            case Type::DISPLACEMENT:
+                return {0.0F, 0.0F, 0.0F};
+            case Type::ORIENTATION:
+                return {0.0F, 0.0F, 0.0F};
+            case Type::TRACKER:
+                return {0.0F, 0.0F, 0.0F};
+        }
+        return {};
+    }
+
+
     Frame() = default;
+    Frame(const FrameDescription &frameDescription)
+    {
+        for (auto &frameDescriptionElement : frameDescription)
+        {
+            auto part = frameDescriptionElement.first;
+            auto type = frameDescriptionElement.second;
+            model.push_back({part, type, getInitialParams(type)});
+            //modelMap.emplace(std::make_pair(part, &model.back()));
+        }
+    }
     Frame(const char *c, FrameDescription &frameDescription)
     {
         size_t i = strlen(c);
@@ -62,11 +86,11 @@ struct Frame
             auto part = frameDescriptionElement.first;
             auto type = frameDescriptionElement.second;
             model.push_back({part, type, getParams(type, c, e)});
-            modelMap.emplace(std::make_pair(part, &model.back()));
+            //modelMap.emplace(std::make_pair(part, &model.back()));
         }
     }
     std::vector<FrameElement> model;
-    std::unordered_map<Part, FrameElement*> modelMap;
+    //std::unordered_map<Part, FrameElement*> modelMap;
 
     std::string dump()
     {
@@ -74,7 +98,7 @@ struct Frame
         for (auto &frameElement : model)
         {
             ss << frameElement.part << " "
-                      << frameElement.type << " ";
+               << frameElement.type << " ";
             for (auto &x : frameElement.params)
             {
                 ss << x << " ";

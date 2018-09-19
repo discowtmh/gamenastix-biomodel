@@ -11,7 +11,13 @@ namespace deepModel {
 
 struct Model
 {
-    Node root;
+    Model(Node&& node)
+            : root(node)
+            , frame(root.getFrameDescription())
+    {
+        std::cout << frame.dump() << std::endl;
+    }
+
     std::vector<uint8_t> getSerializedModel()
     {
         return root.getSerializedModel();
@@ -20,13 +26,21 @@ struct Model
     std::vector<uint8_t> getSerializedFrame()
     {
         return frame.serialize();
+    }
 
-   }
     void update(Part part, Params params)
     {
-        frame.modelMap[part]->params = params;
+        for(auto& frameRef : frame.model)
+        {
+            if (frameRef.part == part)
+            {
+                frameRef.params = params;
+            }
+        }
     }
-        Frame frame;
+
+    Node root;
+    Frame frame;
 };
 }
 }

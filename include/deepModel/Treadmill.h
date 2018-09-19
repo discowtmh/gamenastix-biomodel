@@ -25,7 +25,7 @@ struct Treadmill : public Medium
             "    RIGHT_LEG_UPPER ORIENTATION DYNAMIC "
             "     RIGHT_LEG_LOWER ORIENTATION DYNAMIC ";
 
-        static Model model = {Node(modelDescription)};
+        static Model model = Model{Node(modelDescription)};
         return model;
     }
 };
