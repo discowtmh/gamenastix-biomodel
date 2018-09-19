@@ -74,7 +74,6 @@ struct Frame
             auto part = frameDescriptionElement.first;
             auto type = frameDescriptionElement.second;
             model.push_back({part, type, getInitialParams(type)});
-            //modelMap.emplace(std::make_pair(part, &model.back()));
         }
     }
     Frame(const char *c, FrameDescription &frameDescription)
@@ -86,11 +85,10 @@ struct Frame
             auto part = frameDescriptionElement.first;
             auto type = frameDescriptionElement.second;
             model.push_back({part, type, getParams(type, c, e)});
-            //modelMap.emplace(std::make_pair(part, &model.back()));
+            c++;
         }
     }
     std::vector<FrameElement> model;
-    //std::unordered_map<Part, FrameElement*> modelMap;
 
     std::string dump()
     {

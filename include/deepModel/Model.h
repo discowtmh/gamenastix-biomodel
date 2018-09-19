@@ -4,6 +4,7 @@
 #pragma once
 
 #include <Node.h>
+#include <Protocol.h>
 
 
 namespace biomodel {
@@ -13,9 +14,9 @@ struct Model
 {
     Model(Node&& node)
             : root(node)
-            , frame(root.getFrameDescription())
+            , frameDescription(root.getFrameDescription())
+            , frame(frameDescription)
     {
-        std::cout << frame.dump() << std::endl;
     }
 
     std::vector<uint8_t> getSerializedModel()
@@ -39,7 +40,26 @@ struct Model
         }
     }
 
+    Params get(Part part)
+    {
+        for(auto& frameRef : frame.model)
+        {
+            if (frameRef.part == part)
+            {
+                return frameRef.params;
+            }
+        }
+
+        throw std::runtime_error("");
+    }
+
+    void update(Message& message)
+    {
+        frame = Frame(reinterpret_cast<const char *>(&message[1]), frameDescription);
+    }
+
     Node root;
+    FrameDescription frameDescription;
     Frame frame;
 };
 }
