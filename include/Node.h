@@ -129,7 +129,6 @@ struct Node
     static std::vector<Node> getNodes(const char *c, const char *e)
     {
         std::vector<Node> nodes;
-        int offset;
         while (c < e)
         {
             nodes.push_back(getNode(c, e));
@@ -159,7 +158,7 @@ struct Node
 
     Node(const char *c)
     {
-        int i = strlen(c);
+        size_t i = strlen(c);
         std::vector<Node> treeFlat = getNodes(c, c + i);
         auto bit = treeFlat.begin();
         auto eit = treeFlat.end();
@@ -187,12 +186,18 @@ struct Node
         {
             ss << param << " ";
         }
-        ss << '\n';
+        ss << ' ';
         for (auto &node : nodes)
         {
             ss << node.dump();
         }
         return ss.str();
+    }
+
+    std::vector<uint8_t> getSerializedModel()
+    {
+        auto serializedString = dump();
+        return std::vector<uint8_t>(serializedString.begin(), serializedString.end());
     }
 
     FrameDescription getFrameDescription()
@@ -207,4 +212,5 @@ struct Node
     Params params;
     std::vector<Node> nodes;
     FrameDescription frameDescription;
+
 };
