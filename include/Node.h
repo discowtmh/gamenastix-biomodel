@@ -171,6 +171,10 @@ struct Node
             {
                 frameDescription.push_back({node.part, node.type});
             }
+            else
+            {
+                staticDescription.push_back({node.part, node.params});
+            }
         }
     }
 
@@ -205,6 +209,11 @@ struct Node
         return frameDescription;
     }
 
+    StaticDescription getStaticDescription()
+    {
+        return staticDescription;
+    }
+
     int level;
     Part part;
     Type type;
@@ -212,5 +221,5 @@ struct Node
     Params params;
     std::vector<Node> nodes;
     FrameDescription frameDescription;
-
+    StaticDescription staticDescription;
 };
