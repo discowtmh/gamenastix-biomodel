@@ -16,6 +16,7 @@ struct Model
             : root(node)
             , frameDescription(root.getFrameDescription())
             , frame(frameDescription)
+            , staticDescription(root.getStaticDescription())
     {
     }
 
@@ -50,6 +51,14 @@ struct Model
             }
         }
 
+        for(auto& modelRef : staticDescription)
+        {
+            if (modelRef.first == part)
+            {
+                return modelRef.second;
+            }
+        }
+
         throw std::runtime_error("");
     }
 
@@ -60,6 +69,7 @@ struct Model
 
     Node root;
     FrameDescription frameDescription;
+    StaticDescription staticDescription;
     Frame frame;
 };
 }

@@ -17,6 +17,8 @@ using FrameDescription = std::vector<std::pair<Part, Type>>;
 
 using Params = std::vector<float>;
 
+using StaticDescription = std::vector<std::pair<Part, Params>>;
+
 struct FrameElement
 {
     Part part;
