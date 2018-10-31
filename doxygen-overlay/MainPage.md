@@ -6,12 +6,12 @@ Currently two types of biomodels are used:
  * \subpage treadmillPage "Complete 8 sensor model"
 
 \page bio4Page
-Place Image Here.
+\image html Bio4.png
  * The model has LU, LD, RU, RD.
  * The model is implemented in \ref biomodel::deepModel::Bio4
 
 \page treadmillPage
-Place Image Here.
+\image html Treadmill.png
  * The model has all bio4 parts LU, LD, RU, RD, and Backpack, Distance, Crane.
  * The model is implemented in \ref biomodel::deepModel::Treadmill
 
