@@ -17,6 +17,10 @@ namespace deepModel {
  *
  * Model has a following structure: \n
  * \n
+ * \image html biomodel-treadmill.png
+ * \n
+ * and is serialized as follows:\n
+ * \n
  * CRANE ORIENTATION DYNAMIC \n
  * \ DISTANCE DISPLACEMENT DYNAMIC \n
  * \ \ BACKPACK ORIENTATION DYNAMIC \n
@@ -28,7 +32,8 @@ namespace deepModel {
  * \ \ \ \ \ RIGHT_LEG_LOWER ORIENTATION DYNAMIC \n
  * \n
  * Each frame contains the current orientation (euler yaw/pitch/roll angles)
- * and displacement (3 dimensional relative offset) for each dynamic component:\n
+ * and displacement (3 dimensional relative offset) for each dynamic component
+ * (all in dark khaki color):\n
  * \n
  * CRANE\n
  * DISTANCE\n
@@ -36,7 +41,20 @@ namespace deepModel {
  * LEFT_LEG_UPPER\n
  * LEFT_LEG_LOWER\n
  * RIGHT_LEG_UPPER\n
- * RIGHT_LEG_LOWER
+ * RIGHT_LEG_LOWER\n
+ * \n
+ * For example the frame with the squat position towards West may have the
+ * following shape:\n
+ * 270.0 20.0 0.0 \n
+ * 0.0 700.0 0.0 \n
+ * 0.0 -20.0 0.0 \n
+ * 0.0 45.0 0.0 \n
+ * 0.0 -45.0 0.0 \n
+ * 0.0 45.0 0.0 \n
+ * 0.0 -45.0 0.0 \n
+ * \n
+ * , where the line with displacement express offset along y axis in millimeters,
+ * and the other values stands for yaw, pitch, roll in degrees.
  **/
 struct Treadmill : public Medium
 {
